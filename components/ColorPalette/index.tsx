@@ -11,8 +11,10 @@ import SizedBox from '../SizedBox';
 import ColorSelectCircle from './ColorSelectCircle';
 import {COLORS_DATA} from './data';
 
-interface ColorPaletteProps {}
-const ColorPalette: FC<ColorPaletteProps> = () => {
+interface ColorPaletteProps {
+  onPress?: () => void;
+}
+const ColorPalette: FC<ColorPaletteProps> = ({onPress}) => {
   const colorCtx = useContext(colorContext);
   return (
     <View style={styles.container}>
@@ -26,6 +28,7 @@ const ColorPalette: FC<ColorPaletteProps> = () => {
             <TouchableOpacity
               onPress={() => {
                 colorCtx?.changeColor(color.id);
+                onPress?.();
               }}
               key={color.id}
               style={styles.colorSelectContainer}>
@@ -52,6 +55,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 36,
+    color: '#131313',
+    fontWeight: '200',
   },
 });
 export default ColorPalette;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Dimensions, StyleSheet} from 'react-native';
 import Animated, {
   Easing,
@@ -13,8 +13,8 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RootStackParamList} from '../../App';
 import {colorContext} from '../../context/Color.context';
-import {getColorById, getDefaultColor} from '../ColorPalatte/getColorById';
-import {COLORS_DATA} from '../ColorPalatte/data';
+import {COLORS_DATA} from '../ColorPalette/data';
+import {getColorById, getDefaultColor} from '../ColorPalette/getColorById';
 
 const {width: SCREEN_WIDTH, height: SCREEN_HEIGHT} = Dimensions.get('window');
 
@@ -74,6 +74,9 @@ export default function AnimatedText({
           getDefaultColor(COLORS_DATA),
       );
     }
+    return () => {
+      setCOLORS(getDefaultColor(COLORS_DATA));
+    };
   }, [colorCtx]);
 
   useDerivedValue(() => {
@@ -85,6 +88,7 @@ export default function AnimatedText({
   return (
     <>
       <Animated.ScrollView
+        showsHorizontalScrollIndicator={false}
         scrollEnabled={false}
         ref={ref => {
           ref?.scrollToEnd({animated: true});
